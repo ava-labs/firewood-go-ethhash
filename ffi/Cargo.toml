@@ -1,0 +1,35 @@
+[package]
+name = "firewood-ffi"
+version = "0.0.5"
+edition = "2024"
+rust-version = "1.85.0"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+libc = "0.2.2"
+firewood = { path = "../firewood" }
+metrics = "0.24.1"
+metrics-util = "0.19.0"
+chrono = "0.4.39"
+oxhttp = "0.3.0"
+coarsetime = "0.1.35"
+env_logger = {version = "0.11.7", optional = true}
+
+[target.'cfg(unix)'.dependencies]
+tikv-jemallocator = "0.6.0"
+
+[features]
+logger = ["dep:env_logger", "firewood/logger"]
+ethhash = ["firewood/ethhash"]
+
+[build-dependencies]
+cbindgen = "0.29.0"
+
+[lints.clippy]
+unwrap_used = "warn"
+indexing_slicing = "warn"
+explicit_deref_methods = "warn"
+missing_const_for_fn = "warn"
+pedantic = "warn"
