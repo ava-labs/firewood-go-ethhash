@@ -1,0 +1,43 @@
+[package]
+name = "firewood-ffi"
+version.workspace = true
+edition.workspace = true
+authors = [
+     "Aaron Buchwald <aaron.buchwald56@gmail.com>",
+     "Arran Schlosberg <519948+ARR4N@users.noreply.github.com>",
+     "Austin Larson <78000745+alarso16@users.noreply.github.com>",
+     "Darioush Jalali <darioush.jalali@avalabs.org>",
+     "Ron Kuris <ron.kuris@avalabs.org>",
+]
+description = "C FFI bindings for Firewood, an embedded key-value store optimized for blockchain state."
+license-file.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+libc = "0.2.174"
+firewood.workspace = true
+metrics = { workspace = true }
+metrics-util = { workspace = true }
+chrono = "0.4.41"
+oxhttp = "0.3.1"
+coarsetime = { workspace = true }
+env_logger = { workspace = true, optional = true}
+
+[target.'cfg(unix)'.dependencies]
+tikv-jemallocator = "0.6.0"
+
+[features]
+logger = ["dep:env_logger", "firewood/logger"]
+ethhash = ["firewood/ethhash"]
+
+[build-dependencies]
+cbindgen = "0.29.0"
+
+[lints]
+workspace = true
